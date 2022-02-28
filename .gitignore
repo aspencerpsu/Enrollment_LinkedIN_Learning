@@ -1,0 +1,6 @@
+migrations/
+venv/
+tests/
+*.swp
+.env
+.flaskenv
