@@ -1,6 +1,9 @@
+.vscode/
 migrations/
 venv/
 tests/
 *.swp
 .env
 .flaskenv
+__pycache__/
+application/__pycache__/
