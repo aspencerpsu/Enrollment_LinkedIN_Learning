@@ -1,5 +1,7 @@
 from application import app
 from flask import render_template, request, Response
+from application.forms import LoginForm, RegisterForm
+from models import *
 import json
 
 
@@ -11,9 +13,10 @@ data = [{"courseID":"1111","title":"PHP 101","description":"Intro to PHP","credi
 def index():
     return render_template("index.html", index=True)
 
-@app.route("/login")
+@app.route("/login", methods=['GET', 'POST'])
 def login():
-    return render_template("login.html", login=True)
+    form = LoginForm()
+    return render_template("login.html", form=form, title="Login", login=True)
 
 @app.route("/courses")
 @app.route("/courses/<term>")
@@ -22,7 +25,8 @@ def courses(term="Fall 2020"):
 
 @app.route("/register")
 def register():
-    return render_template("register.html", register=True)
+    register = RegisterForm()
+    return render_template("register.html", form=register, register=True)
 
 @app.route("/enrollment", methods=["GET", "POST"])
 def enrollment():
@@ -41,3 +45,7 @@ def api(idx=None):
 
     return Response(json.dumps(jdata), mimetype="application/json")
 
+@app.route("/user")
+def user():
+  users=User.query.all()
+  return render_template('user.html', users=users)
